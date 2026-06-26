@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-oceanic text-arctic font-sans antialiased overflow-x-hidden;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-mono font-bold tracking-tight;
+  }
+}
+
+/* Native CSS Animations for Performance */
+@keyframes scan-line {
+  0% { transform: translateY(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-scan {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-scan::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 100%;
+  background: linear-gradient(to bottom, transparent, rgba(255, 200, 1, 0.2), transparent);
+  animation: scan-line 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.typing-cursor {
+  animation: blink 1s steps(1) infinite;
+}
+
+.marquee-track {
+  animation: marquee 24s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@keyframes pulse-branch {
+  0%, 100% { transform: scaleY(0.95); opacity: 0.7; }
+  50% { transform: scaleY(1.05); opacity: 1; }
+}
+
+@keyframes pulse-node {
+  0%, 100% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+
+@keyframes grow-branch {
+  0% { transform: scaleY(0.2); opacity: 0.3; }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+
+@keyframes float-orb {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.45; }
+  50% { transform: translate3d(25px, -20px, 0) scale(1.1); opacity: 0.8; }
+}
+
+@keyframes drift-grid {
+  0% { transform: translateX(-5%) translateY(-5%); }
+  100% { transform: translateX(5%) translateY(5%); }
+}
+
+.tree-node {
+  animation: pulse-node 1.8s ease-in-out infinite;
+}
+
+.hero-orb {
+  animation: float-orb 8s ease-in-out infinite;
+}
+
+.hero-grid {
+  animation: drift-grid 16s ease-in-out infinite alternate;
+}
+
+.mind-map-branch {
+  transform-origin: top center;
+  animation: grow-branch 1.6s ease-out forwards;
+}
+
+.mind-map-branch:nth-child(2) {
+  animation-delay: 0.25s;
+}
+
+.mind-map-branch:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+.mind-map-branch:nth-child(4) {
+  animation-delay: 0.75s;
+}
+
+/* Accordion native transitions */
+.accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.accordion-content.open {
+  grid-template-rows: 1fr;
+}
+.accordion-inner {
+  overflow: hidden;
+}
